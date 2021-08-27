@@ -15,14 +15,14 @@ module.exports = new Event("messageCreate", (client, message) => {
 
 	if (!["BOTH", "TEXT"].includes(command.type))
 		return message.reply(
-			"That command is only available via slash command!"
+			"<a:warn_:878917634668781629> That command is only available via slash command!"
 		);
 
 	const permission = message.member.permissions.has(command.permission, true);
 
 	if (!permission)
 		return message.reply(
-			`You do not have the permission \`${command.permission}\` to run this command!`
+			`<a:warn_:878917634668781629> You do not have the permission \`${command.permission}\` to run this command!`
 		);
 
 	command.run(message, args, client);

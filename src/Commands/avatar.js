@@ -8,13 +8,7 @@ module.exports = new Command({
     name: "avatar",
     description: "Shows avatar of a User.",
     permission: "SEND_MESSAGES",
-    type: "BOTH",
-    slashCommandOptions: [{
-        name: "user",
-        description: "Shows avatar of a User.",
-        type: "STRING",
-        required: false
-    }],
+    aliases: ['av', 'pfp'],
     async run(message, args, client) {
 
         let user =

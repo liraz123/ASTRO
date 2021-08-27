@@ -9,13 +9,6 @@ const fetch = require("node-fetch");
 module.exports = new Command({
     name: "color",
     description: "Shows color which the user has provided!",
-    type: "BOTH",
-    slashCommandOptions: [{
-        name: "color",
-        description: "Shows color which you hsve provided.",
-        type: "STRING",
-        required: true
-    }],
     permission: "SEND_MESSAGES",
     async run(message, args, client) {
         let color = args.slice(1).join(" ")

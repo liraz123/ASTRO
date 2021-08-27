@@ -8,13 +8,6 @@ module.exports = new Command({
     name: 'weather',
     description: 'Shows weather of the city provided.',
     permission: "SEND_MESSAGES",
-    type: "BOTH",
-    slashCommandOptions: [{
-        name: "city",
-        description: "Shows weather of the city provided.",
-        type: "STRING",
-        required: false
-    }],
     async run(message, args, client) {
 
 
@@ -43,7 +36,7 @@ module.exports = new Command({
                 .addField("Winds", "<a:ar:878262605154766899> " + current.winddisplay, true)
                 .addField("Humidity", "<a:ar:878262605154766899> " + `${current.humidity}%`, true)
                 .addField("Timezone", "<a:ar:878262605154766899> " + `GMT ${location.timezone}`, true)
-                .addField("Temperature", "<a:ar:878262605154766899> " + `${current.temperature}°C`)
+                .addField("Temperature", "<a:ar:878262605154766899> " + `${current.temperature}°C`, true)
                 .addField("Observation Time", "<a:ar:878262605154766899> " + current.observationtime, true)
 
             return message.channel.send({

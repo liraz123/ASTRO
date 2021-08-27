@@ -7,19 +7,19 @@ module.exports = new Event("interactionCreate", (client, interaction) => {
     const args = [
         interaction.commandName,
         ...client.commands
-            .find(cmd => cmd.name.toLowerCase() == interaction.commandName)
-            .slashCommandOptions.map(v => `${interaction.options.get(v.name).value}`)
+        .find(cmd => cmd.name.toLowerCase() == interaction.commandName)
+        .slashCommandOptions.map(v => `${interaction.options.get(v.name).value}`)
     ];
 
     const command = client.commands.find(cmd => cmd.name.toLowerCase() == interaction.commandName);
 
-    if (!command) return interaction.reply("That is not a valid command!");
+    if (!command) return interaction.reply("<a:warn_:878917634668781629> That is not a valid command!");
 
     const permission = interaction.member.permissions.has(command.permission);
 
     if (!permission)
         return interaction.reply(
-            "You do not have the correct permissions to run this command!"
+            "<a:warn_:878917634668781629> You do not have the correct permissions to run this command!"
         );
 
     command.run(interaction, args, client);

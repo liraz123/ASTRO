@@ -11,15 +11,11 @@ module.exports = new Command({
 	slashCommandOptions: [],
 	permission: "SEND_MESSAGES",
 	async run(message, args, client) {
-		const m = await message.reply(`> Ping: ${client.ws.ping} ms.`);
-
-		const msg = message instanceof Discord.CommandInteraction ? await message.fetchReply() : m;
-
-		msg.edit(
-			
-			`> Ping: ${client.ws.ping} ms.\n> Message Ping: ${
-				msg.createdTimestamp - message.createdTimestamp
-			}`
-		);
+		let circles = {
+            green: "<a:greendot:878918064161308722>",
+            yellow: "<a:reddot:878918059555962890>",
+            red: "<a:reddot:878918059555962890>"
+        }
+		message.reply(`> **PING:** ${client.ws.ping <= 200 ? circles.green : client.ws.ping <= 400 ? circles.yellow : circles.red} ${client.ws.ping}ms`);
 	}
 });

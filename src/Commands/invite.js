@@ -7,6 +7,8 @@ const Discord = require("discord.js");
 module.exports = new Command({
     name: "invite",
     description: "Gives invite link to invite bot in your server.",
+	type: "BOTH",
+	slashCommandOptions: [],
     permission: "SEND_MESSAGES",
     async run(message, args, client) {
         const embed = new Discord.MessageEmbed();

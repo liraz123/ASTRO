@@ -18,8 +18,7 @@ module.exports = new Command({
 
         const embed = new Discord.MessageEmbed();
 
-        embed
-            .setTitle(`${user.user.username}'s Avatar <a:pikaCool:878351879501926451>`)
+        embed.setAuthor(`${user.user.tag}'s Avatar`, user.user.displayAvatarURL())
             .setColor(`#0AFFFF`)
             .setDescription(`[PNG](${user.user.displayAvatarURL({ dynamic:true, format: "png"})}) | [JPG](${user.user.displayAvatarURL({dynamic:true, format: "jpg"})}) | [GIF](${user.user.displayAvatarURL({dynamic:true, format: "gif"})}) | [WEBP](${user.user.displayAvatarURL({dynamic:true, format: "webp"})})`)
             .setImage(`${user.user.displayAvatarURL({size:2048,dynamic:true, format: "png"})}`)

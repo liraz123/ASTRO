@@ -33,7 +33,7 @@ module.exports = new Command({
         }
 
         const embed = new Discord.MessageEmbed();
-        embed.setTitle(`${user.user.username} Info`)
+        embed.setAuthor(`${user.user.tag}'s INFO`, user.user.displayAvatarURL())
             .setColor(`#00FF00`)
             .setThumbnail(user.user.displayAvatarURL({
                 dynamic: true

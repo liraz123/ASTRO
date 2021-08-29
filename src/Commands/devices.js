@@ -5,8 +5,8 @@ const Command = require("../Structures/Command.js");
 const Discord = require("discord.js");
 
 module.exports = new Command({
-    name: "ping",
-    description: "Shows the ping of the bot!",
+    name: "devices",
+    description: "Shows the device of the the user using",
     async run(message, client, run) {
         let user =
             message.mentions.members.last() ||

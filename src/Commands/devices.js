@@ -7,7 +7,7 @@ const Discord = require("discord.js");
 module.exports = new Command({
     name: "devices",
     description: "Shows the device of the the user using",
-    async run(message, client, run) {
+    async run(message, client, args) {
         let user =
             message.mentions.members.last() ||
             message.guild.members.cache.get(args[0]) ||
@@ -22,13 +22,15 @@ module.exports = new Command({
                 return `Device: ${entries}`;
             } else {
                 const entries = Object.entries(devices).map(
-                    (value, index) => `${index + 1}) ${value[0]}`).join("\n");
+                    (value, index) => `**${index + 1}** <a:ar:878262605154766899> ${value[0][0].toUpperCase()}${value[0].slice(1)}`).join("\n");
                 return `Devices: \n${entries}`
             }
         };
         const embed = new Discord.MessageEmbed()
         embed.setAuthor(user.user.tag, user.user.displayAvatarURL())
             .setDescription(description());
-            message.channel.send({ embeds: [embed]})
+        message.channel.send({
+            embeds: [embed]
+        })
     },
 });

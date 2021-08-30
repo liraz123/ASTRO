@@ -7,6 +7,7 @@ const Discord = require("discord.js");
 module.exports = new Command({
     name: "devices",
     description: "Shows the device of the the user using",
+    permission: "SEND_MESSAGES",
     async run(message, client, args) {
         let user =
             message.mentions.members.last() ||

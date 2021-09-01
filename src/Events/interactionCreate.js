@@ -7,11 +7,11 @@ module.exports = new Event("interactionCreate", (client, interaction) => {
     const args = [
         interaction.commandName,
         ...client.commands
-        .find(cmd => cmd.name.toLowerCase() == interaction.commandName)
+        .find(cmd => cmd.name == interaction.commandName)
         .slashCommandOptions.map(v => `${interaction.options.get(v.name).value}`)
     ];
 
-    const command = client.commands.find(cmd => cmd.name.toLowerCase() == interaction.commandName);
+    const command = client.commands.find(cmd => cmd.name == interaction.commandName);
 
     if (!command) return interaction.reply("<a:warn_:878917634668781629> That is not a valid command!");
 

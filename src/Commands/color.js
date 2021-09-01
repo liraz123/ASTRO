@@ -10,6 +10,13 @@ module.exports = new Command({
     name: "color",
     description: "Shows color which the user has provided!",
     permission: "SEND_MESSAGES",
+	type: "BOTH",
+	slashCommandOptions: [{
+        name: "color",
+        description: "Shows color which the user has provided!",
+        type: "STRING",
+        required: true
+    }],
     async run(message, args, client) {
         let color = args.slice(1).join(" ")
         if (color.includes("#")) {
@@ -30,7 +37,7 @@ module.exports = new Command({
             .setThumbnail(json.image)
             .setImage(json.image_gradient, true)
             .setColor(json.hex);
-        message.channel.send({
+        message.reply({
             embeds: [embed]
         })
     }

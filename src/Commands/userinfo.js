@@ -79,7 +79,7 @@ module.exports = new Command({
                 inline: true
             });
 
-        message.channel.send({
+        message.reply({
             embeds: [embed]
         });
     }

@@ -5,7 +5,7 @@ const Discord = require("discord.js");
 module.exports = new Command({
     name: "serverinfo",
     description: "Shows info about the server",
-    permission: "SEND_MESSAGES",
+    permission: "ADMINISTRATOR",
     async run(message, args, client) {
         const members = message.guild.members.cache;
 
@@ -34,10 +34,7 @@ module.exports = new Command({
             }, {
                 name: 'Roles list',
                 value: `${message.guild.roles.cache.map(r => `${r}`).join("\n")}`
-            }, {
-                name: `Created At`,
-                value: `${message.createdAt.toUTCString().substr(0, 16)}`
-            }, )
+            })
             .setFooter(`ID: ${message.guild.id}`)
             .setTimestamp(`${message.guild.createdAt}`);
         message.channel.send({

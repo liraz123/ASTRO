@@ -1,6 +1,6 @@
 /** @format */
 
-const config = require("../Data/config.json")
+const config = require("../Data/config.js")
 
 const Event = require("../Structures/Event.js");
 

@@ -6,7 +6,7 @@ const Command = require("./Command.js");
 
 const Event = require("./Event.js");
 
-const config = require("../Data/config.json");
+const config = require("../Data/config.js");
 
 const intents = new Discord.Intents(32767);
 
@@ -81,7 +81,7 @@ class Client extends Discord.Client {
 				this.on(event.event, event.run.bind(null, this));
 			});
 
-		this.login(token);
+		this.login(config.token);
 	}
 }
 

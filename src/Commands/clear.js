@@ -34,8 +34,6 @@ module.exports = new Command({
             `<a:ticks:877944906486808596> Cleared ${amountParsed} message! <a:ticks:877944906486808596>`
         );
 
-
-
         if (msg) setTimeout(() => msg.delete(), 1666);
     }
 });

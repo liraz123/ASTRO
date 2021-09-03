@@ -10,22 +10,28 @@ module.exports = new Command({
   async run(message, args, client) {
 
     new gamecord.Snake({
-        message: message,
-            embed: {
-                title: 'Snake',
-                color: '#ffffff',
-            },
-            snake: { head: '🟢', body: '🟩', tail: '🟢' },
-            emojis: {
-                emojis: {
-                    board: '🔳', 
-                    food: '🍎',
-                    up: '⬆️', 
-                    right: '➡️',
-                    down: '⬇️',
-                    left: '⬅️',
-                  },
-            },
-        }).startGame();
-    }
-  });
+      message: message,
+      embed: {
+        title: 'Snake',
+        color: '#ffffff',
+      },
+      snake: {
+        head: '🟢',
+        body: '🟩',
+        tail: '🟢'
+      },
+      emojis: {
+        emojis: {
+          board: '🔳',
+          food: '🍎',
+          up: '⬆️',
+          right: '➡️',
+          down: '⬇️',
+          left: '⬅️',
+        },
+      },
+      timeEndMessage: 'Since the opponent didnt answer, i dropped the game!',
+      gameEndMessage: 'The game went unfinished :(',
+    }).startGame();
+  }
+});

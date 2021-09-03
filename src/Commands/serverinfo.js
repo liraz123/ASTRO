@@ -24,7 +24,7 @@ module.exports = new Command({
                 value: `<a:ar:878262605154766899> Total: ${message.guild.memberCount}, Human: ${members.filter(member => !member.user.bot).size}, Bots: ${members.filter(member => member.user.bot).size}`
             }, {
                 name: '📡 Channels 🛰️',
-                value: `<a:ar:878262605154766899> Total: ${message.guild.channels.cache.size}, Text: ${message.guild.channels.cache.filter(channel => channel.type === 'GUILD_TEXT').size}, Voice: ${message.guild.channels.cache.filter(channel => channel.type === 'GUILD_VOICE').size}`
+                value: `<a:ar:878262605154766899> Total: ${message.guild.channels.cache.size}, <:TC:883245243741405234> Text: ${message.guild.channels.cache.filter(channel => channel.type === 'GUILD_TEXT').size}, <:VC:883245603038064650> Voice: ${message.guild.channels.cache.filter(channel => channel.type === 'GUILD_VOICE').size}`
             }, {
                 name: `Emojis`,
                 value: `<a:ar:878262605154766899> Total: ${message.guild.emojis.cache.size}, Normal: ${message.guild.emojis.cache.filter(emoji => !emoji.animated).size}, Animated: ${message.guild.emojis.cache.filter(emoji => emoji.animated).size}`

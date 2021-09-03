@@ -4,7 +4,7 @@ const Command = require("../Structures/Command.js");
 
 const Discord = require("discord.js");
 
-module.exports = new Command ({
+module.exports = new Command({
     name: "echo",
     description: "Echo what you say",
     type: "BOTH",
@@ -14,9 +14,10 @@ module.exports = new Command ({
         type: "STRING",
         required: true
     }],
+    permission: "SEND_MESSAGES",
     run: async (interaction, args, client) => {
         if (args.slice(1).length > 0) return await interaction.reply(args.slice(1).join(" "));
-            else 
-        interaction.reply('<a:warn_:878917634668781629> You did not send a message to repeat, cancelling command.')
+        else
+            interaction.reply('<a:warn_:878917634668781629> You did not send a message to repeat, cancelling command.')
     }
 });

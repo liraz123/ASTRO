@@ -2,7 +2,7 @@ const Command = require("../Structures/Command.js");
 
 module.exports = new Command ({
     name: "hack",    
-    description: "Shows avatar of a User.",
+    description: "Hack for fun.",
     permission: "SEND_MESSAGES",
     async run(message, args, client) {
         function wait(ms){

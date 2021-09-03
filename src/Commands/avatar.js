@@ -22,7 +22,9 @@ module.exports = new Command({
             .setColor(`#0AFFFF`)
             .setDescription(`[PNG](${user.user.displayAvatarURL({ dynamic:true, format: "png"})}) | [JPG](${user.user.displayAvatarURL({dynamic:true, format: "jpg"})}) | [GIF](${user.user.displayAvatarURL({dynamic:true, format: "gif"})}) | [WEBP](${user.user.displayAvatarURL({dynamic:true, format: "webp"})})`)
             .setImage(`${user.user.displayAvatarURL({size:2048,dynamic:true, format: "png"})}`)
-            .setFooter(`Requested by: ${message.author.tag}`, message.author.displayAvatarURL({ dynamic:true }))
+            .setFooter(`Requested by: ${message.author.tag}`, message.author.displayAvatarURL({
+                dynamic: true
+            }))
             .setTimestamp(message.createdTimestamp);
         message.channel.send({
             embeds: [embed]

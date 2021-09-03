@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "discord-gamecord": "^1.1.4",
     "discord.js": "^13.0.1",
     "dotenv": "^10.0.0",
     "mathjs": "^9.4.4",

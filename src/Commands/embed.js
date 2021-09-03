@@ -11,7 +11,7 @@ const Command = require("../Structures/Command.js");
 
 module.exports = new Command({
     name: "embed",
-    description: "Make an embed using me ^_^",
+    description: "Make an embed using me 😊",
     permission: "SEND_MESSAGES",
     async run(message, args, client) {        
        let channel = message.mentions.channels.first();

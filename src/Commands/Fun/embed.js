@@ -7,7 +7,7 @@ const embed = MessageEmbed;
 const button = MessageButton;
 const menu = MessageSelectMenu; 
 
-const Command = require("../Structures/Command.js");
+const Command = require("../../Structures/Command.js");
 
 module.exports = new Command({
     name: "embed",

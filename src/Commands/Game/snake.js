@@ -1,6 +1,6 @@
 /** @format */
 
-const Command = require("../Structures/Command.js");
+const Command = require("../../Structures/Command.js");
 const gamecord = require("discord-gamecord");
 
 module.exports = new Command({

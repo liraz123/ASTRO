@@ -10,4 +10,5 @@ const client = new Client();
 
 console.log(`My prefix is [ ${config.prefix} ]`)
 
-client.start(config.token);
+client.start(config.token, process.on('unhandledRejection', (err) => {
+    console.log('err' + err)}));

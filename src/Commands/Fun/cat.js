@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const { MessageEmbed } = require("discord.js");
 
-const Command = require("../Structures/Command.js");
+const Command = require("../../Structures/Command.js");
 
 module.exports = new Command({
   name: "cat",

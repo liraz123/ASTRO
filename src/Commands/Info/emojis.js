@@ -1,33 +1,119 @@
 const Command = require("../../Structures/Command.js");
 
-const Discord = require("discord.js");
-
-const {
-    e
-} = require("mathjs");
+const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
 
 module.exports = new Command({
-    name: "emojis",
-    description: "View all emojis in the guild",
-    permission: "SEND_MESSAGES",
-    async run(message, args, client) {
-        const charactersPerMessage = 1994;
-        let emojis = message.guild.emojis.cache.filter(emoji => !emoji.animated).map((e) => `${e}`).join(' ');
-        let animatedEmojis = message.guild.emojis.cache.filter(emoji => emoji.animated).map((e) => `${e}`).join(' ');
-        const numberOfMessages = Math.ceil(emojis.length / charactersPerMessage);
-        const embed = new Discord.MessageEmbed()
-        embed.setTitle(`SERVER EMOJI`)
-            .setColor('#000000')
-            .addFields({
-                name: '__STANDARD EMOJIS__',
-                value: `${emojis.slice()} `
-            }, {
-                name: '__ANIMATED EMOJIS__',
-                value: `${animatedEmojis.slice()}`
-            })
-            .setFooter(`${message.guild.emojis.cache.size} emojis total`);
-        message.channel.send({
-            embeds: [embed]
-        })
-    },
+  name: "emojis",
+  description: "View all emojis in the guild",
+  permission: "SEND_MESSAGES",
+  async run(message, args, client) {
+    let i0 = 0;
+    let i1 = 10;
+    let page = 1;
+
+    let description;
+
+    description = message.guild.emojis.cache
+      .map((r) => r)
+      .map((r, i) => `**${i + 1})** ${r}\`(${r.name})\``)
+      .slice(0, 10)
+      .join("\n");
+
+    let emb = new MessageEmbed()
+      .setColor("GREEN")
+      .setFooter(
+        `Page ${page}/${Math.ceil(message.guild.emojis.cache.size / 10)}`
+      )
+      .setDescription(description);
+
+    let pages = new MessageActionRow().addComponents(
+      new MessageButton()
+        .setStyle("PRIMARY")
+        .setEmoji("⬅️")
+        .setCustomId("previous_emoji"),
+      new MessageButton()
+        .setStyle("PRIMARY")
+        .setEmoji("➡️")
+        .setCustomId("next_emoji")
+    );
+
+    let dis = new MessageActionRow().addComponents(
+      new MessageButton()
+        .setStyle("PRIMARY")
+        .setEmoji("⬅️")
+        .setDisabled(true)
+        .setCustomId("previous_emoji"),
+      new MessageButton()
+        .setStyle("PRIMARY")
+        .setEmoji("➡️")
+        .setDisabled(true)
+        .setCustomId("next_emoji")
+    );
+
+    if (message.guild.emojis.cache.size < 10)
+      return message.channel.send({
+        embeds: [emb],
+        components: [dis],
+      });
+
+    let msg = await message.channel.send({
+      embeds: [emb],
+      components: [pages],
+    });
+
+    let filter = (i) => i.user.id === message.author.id;
+
+    let collector = msg.createMessageComponentCollector({
+      filter,
+    });
+
+    collector.on("collect", async (i) => {
+      if (i.customId === "previous_emoji") {
+        i0 = i0 - 10;
+        i1 = i1 - 10;
+        page = page - 1;
+
+        if (i1 < 9) return msg.delete();
+
+        description = message.guild.emojis.cache
+          .map((r) => r)
+          .map((r, i) => `**${i + 1})** ${r}\`(${r.name})\``)
+          .slice(i0, i1)
+          .join("\n");
+        emb
+          .setFooter(
+            `Page ${page}/${Math.ceil(message.guild.emojis.cache.size / 10)}`
+          )
+          .setDescription(description);
+
+        msg.edit({
+          embeds: [emb],
+        });
+      }
+
+      if (i.customId === "next_emoji") {
+        i0 = i0 + 10;
+        i1 = i1 + 10;
+        page = page + 1;
+
+        if (i1 > message.guild.emojis.cache.size + 10) return msg.delete();
+        if (!i0 || !i1) return msg.delete();
+
+        description = message.guild.emojis.cache
+          .map((r) => r)
+          .map((r, i) => `**${i + 1})** ${r}\`(${r.name})\``)
+          .slice(i0, i1)
+          .join("\n");
+
+        emb
+          .setFooter(
+            `Page ${page}/${Math.ceil(message.guild.emojis.cache.size / 10)}`
+          )
+          .setDescription(description);
+        msg.edit({
+          embeds: [emb],
+        });
+      }
+    });
+  },
 });

@@ -4,7 +4,7 @@
 
 const paginationEmbed = require("discordjs-button-pagination");
 
-const Command = require("../Structures/Command.js");
+const Command = require("../../Structures/Command.js");
 
 const { MessageEmbed, MessageButton } = require("discord.js");
 

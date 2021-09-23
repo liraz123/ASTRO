@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 
-const Command = require("../Structures/Command.js");
+const Command = require("../../Structures/Command.js");
 
 const translate = require("@iamtraction/google-translate");
 

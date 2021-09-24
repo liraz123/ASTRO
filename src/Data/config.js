@@ -2,5 +2,5 @@ require('dotenv').config({path:"./src/Data/.env"});
 
 module.exports = {
     prefix: '+',
-    token: process.env.TOKEN
+    token: Nzk1ODYzOTU2MDQ0MzgyMjE4.X_PkEQ.hykbbHnEHpJtOgC9vFcjHw3sugo
   };

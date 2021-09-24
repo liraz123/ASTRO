@@ -25,5 +25,9 @@
     "node-fetch": "^2.6.1",
     "os": "^0.1.2",
     "weather-js": "^2.0.0"
-  }
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "7.x"
+ }
 }

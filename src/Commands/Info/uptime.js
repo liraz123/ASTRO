@@ -20,7 +20,7 @@ module.exports = new Command({
     const upvalue = (Date.now() / 1000 - client.uptime / 1000).toFixed(0);
 
     const up = new MessageEmbed().setDescription(
-      `${uptime}\n\n :greendot: Since: <t:${upvalue}:T>`
+      `${uptime}\n\n <a:greendot:878918064161308722> Since: <t:${upvalue}:T>`
     );
 
     return message.reply({ embeds: [up] });

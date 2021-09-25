@@ -15,15 +15,15 @@ module.exports = new Command({
       .then((r) => r.json())
       .then((f) => {
         const embed = new Discord.MessageEmbed()
-          .setTitle(`${f.name} (Github link)[${f.url}]`)
+          .setTitle(`${f.name} [Github link](${f.url})`)
           .setThumbnail(f.avatar)
-          .addField(`Company`, `${f.company}`)
-          .addField(`Bio`, `${f.bio}`)
-          .addField(`Location`, `${f.location}`)
-          .addField(`Followers`, `${f.followers}`)
-          .addField(`Following`, `${f.following}`)
-          .addField(`Public repos`, `${f.public_repos}`)
-          .addField(`Public gists`, `${f.public_gists}`)
+          .addField(`Company`, `${f.company}`, true)
+          .addField(`Bio`, `${f.bio}`, true)
+          .addField(`Location`, `${f.location}`, true)
+          .addField(`Followers`, `${f.followers}`, true)
+          .addField(`Following`, `${f.following}`, true)
+          .addField(`Public repos`, `${f.public_repos}`, true)
+          .addField(`Public gists`, `${f.public_gists}`, true)
           .setFooter(`Acc created: ${f.created_at}`);
         message.channel.send({ embeds: [embed] });
       });

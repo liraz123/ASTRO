@@ -5,6 +5,7 @@ const Command = require("../../Structures/Command");
 module.exports = new Command({
     name: "clear",
     description: "Clear an amount of messages",
+    aliases: ["purge", "delete"],
     type: "BOTH",
     slashCommandOptions: [{
         name: "amount",

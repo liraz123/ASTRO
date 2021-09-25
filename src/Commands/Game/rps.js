@@ -7,9 +7,10 @@ const Discord = require("discord.js");
 const cap = require("capitalize-first-letter");
 
 module.exports = new Command({
-  name: "rps",
+  name: "rock_paper_scissor",
   description: "",
   permission: "SEND_MESSAGES",
+  aliases: ["rps"],
   async run(message, args, client) {
     let user = message.mentions.members.first();
     if (!user)

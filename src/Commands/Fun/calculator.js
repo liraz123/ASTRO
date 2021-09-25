@@ -5,9 +5,10 @@ const math = require("mathjs");
 const Discord = require("discord.js");
 
 module.exports = new Command({
-  name: "calc",
+  name: "calculate",
   description: "Does claculation for you",
   permission: "SEND_MESSAGES",
+  aliases: ["calc"],
   async run(message, args, client) {
     if (!args[0]) return message.channel.send("Please provide a question");
 

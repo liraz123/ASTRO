@@ -6,6 +6,7 @@ module.exports = new Command({
     name: "serverinfo",
     description: "Shows info about the server",
     permission: "ADMINISTRATOR",
+    aliases: ["guildinfo"],
     async run(message, args, client) {
         const members = message.guild.members.cache;
 

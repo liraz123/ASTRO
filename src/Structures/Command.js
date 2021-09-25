@@ -14,7 +14,7 @@ function RunFunction(message, args, client) {}
 class Command {
 	/**
 	 * @typedef {"BOTH" | "SLASH" | "TEXT"} CommandType
-	 * @typedef {{name: string, description: string, permission: Discord.PermissionString, type: CommandType, slashCommandOptions: Discord.ApplicationCommandOption[] run: RunFunction}} CommandOptions
+	 * @typedef {{name: string, description: string, aliases: array, permission: Discord.PermissionString, type: CommandType, slashCommandOptions: Discord.ApplicationCommandOption[] run: RunFunction}} CommandOptions
 	 * @param {CommandOptions} options
 	 */
 	constructor(options) {

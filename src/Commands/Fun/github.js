@@ -11,6 +11,8 @@ module.exports = new Command({
   async run(message, args, client) {
     const user = args.slice(1).join(" ");
 
+    if(!args.slice(1).length > 0) return message.reply("Missing username!");
+
     fetch(`https://luminabot.xyz/api/json/github?username=${user}`)
       .then((r) => r.json())
       .then((f) => {

@@ -12,7 +12,7 @@ module.exports = new Event("messageCreate", (client, message) => {
 	const command = client.commands.find(cmd => cmd.name == args[0]);
 
 	if (!command) {
-		client.commands.find(cmd => cmd.aliases == args[0])
+		client.commands.get(cmd => cmd.aliases == args[0])
 	} else {
 		message.reply(`${args[0]} is not a valid command!`);
 	}

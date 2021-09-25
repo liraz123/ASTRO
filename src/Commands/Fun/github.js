@@ -9,8 +9,10 @@ module.exports = new Command({
   async run(message, args, client) {
     const user = args.slice(1).join(" ");
 
-    fetch(`luminabot.xyz/api/json/github?username=${user}`).then((res) => {
-      console.log(res);
-    });
+    fetch(`https://luminabot.xyz/api/json/github?username=${user}`)
+      .then((r) => r.json())
+      .then((f) => {
+        console.log(f);
+      });
   },
 });

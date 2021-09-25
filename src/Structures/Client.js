@@ -44,6 +44,11 @@ class Client extends Discord.Client {
         console.log(`Command ${cmd.name} loaded`);
         this.commands.set(cmd.name, cmd);
         slashcmd.push(cmd);
+        if (cmd.aliases) {
+          cmd.aliases.forEach((aliases) => {
+            this.aliases.set(aliases, cmd);
+          });
+        }
       });
 
       const slashCommands = slashcmd

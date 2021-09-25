@@ -8,7 +8,7 @@ module.exports = new Command({
     name: "avatar",
     description: "Shows avatar of a User.",
     permission: "SEND_MESSAGES",
-    aliases: ['av', 'pfp'],
+    aliases: ["av", "pfp"],
     async run(message, args, client) {
 
         let user =
@@ -18,7 +18,7 @@ module.exports = new Command({
 
         const embed = new Discord.MessageEmbed();
 
-        embed.setAuthor(`${user.user.tag}'s Avatar`, user.user.displayAvatarURL())
+        embed.setAuthor(`${user.user.tag}"s Avatar`, user.user.displayAvatarURL())
             .setColor(`#0AFFFF`)
             .setDescription(`[PNG](${user.user.displayAvatarURL({ dynamic:true, format: "png"})}) | [JPG](${user.user.displayAvatarURL({dynamic:true, format: "jpg"})}) | [GIF](${user.user.displayAvatarURL({dynamic:true, format: "gif"})}) | [WEBP](${user.user.displayAvatarURL({dynamic:true, format: "webp"})})`)
             .setImage(`${user.user.displayAvatarURL({size:2048,dynamic:true, format: "png"})}`)

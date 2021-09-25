@@ -21,6 +21,7 @@ class Command {
 		this.name = options.name;
 		this.description = options.description;
 		this.permission = options.permission;
+		this.aliases = options.aliases;
 		this.type = ["BOTH", "SLASH", "TEXT"].includes(options.type) ? options.type : "TEXT";
 		this.slashCommandOptions = options.slashCommandOptions || [];
 		this.run = options.run;

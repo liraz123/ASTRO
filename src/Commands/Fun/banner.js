@@ -16,7 +16,7 @@ module.exports = new Command({
             message.guild.members.cache.get(args[0]) ||
             message.member;
             
-        axios.get(`https://discord.com/api/users/${user.user.id}`, {
+        axios.get(`https://discord.com/api/users/${user.user.id}?size=1024`, {
                 headers: {
                     Authorization: `Bot ${client.token}`,
                 },

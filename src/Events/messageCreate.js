@@ -11,7 +11,11 @@ module.exports = new Event("messageCreate", (client, message) => {
 
 	const command = client.commands.find(cmd => cmd.name == args[0]);
 
-	if (!command) return message.reply(`${args[0]} is not a valid command!`);
+	if (!command) {
+		client.commmands.find(cmd => cmd.aliases == args[0])
+	} else {
+		message.reply(`${args[0]} is not a valid command!`);
+	}
 
 	if (!["BOTH", "TEXT"].includes(command.type))
 		return message.reply(

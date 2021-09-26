@@ -3,7 +3,6 @@
 const Command = require("../../Structures/Command.js");
 
 const moment = require("moment");
-require("moment-duration-format");
 
 const { MessageEmbed } = require("discord.js");
 

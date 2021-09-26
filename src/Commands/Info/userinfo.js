@@ -132,6 +132,7 @@ module.exports = new Command({
         `__**User Info**__
               **•** \`ID:\` **${user.id}**
               **•** \`Profile:\` **${user}**
+              **•** \`Current status:\` **${status}**
               **•** \`Bot:\` **${user.user.bot ? "Yes" : "No"}**
               **•** \`Created At:\` **${moment(user.user.createdAt).format(
                 "MMMM Do YYYY, H:mm:ss a"

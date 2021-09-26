@@ -17,9 +17,6 @@ module.exports = new Command({
       message.guild.members.cache.get(args[0]) ||
       message.member;
 
-    let userStatm;
-    let userStat = user.presence.status;
-
     let userRoles = user.roles.cache
       .map((x) => x)
       .filter((z) => z.name !== "@everyone");
@@ -36,11 +33,22 @@ module.exports = new Command({
       safe = "`Suspicious` <:dnd:891662340431425576>";
     }
 
-    if (userStat === "online") userStatm = `<:Online:891662235380875355> `;
-    if (userStat === "offline") userStatm = `<:OFFLINE:891662445746204713> `;
-    if (userStat === "idle") userStatm = `<:idle:891662512276246618>`;
-    if (userStat === "dnd")
-      userStatm = `Do not disturb <:dnd:891662340431425576>`;
+    let status;
+    switch (user.presence.status) {
+      case "online":
+        status = "<:Online:891662235380875355> Online";
+        break;
+      case "dnd":
+        status = "<:dnd:891662340431425576> DND [Do Not Disturb]";
+        break;
+      case "idle":
+        status = "<:idle:891662512276246618> Idle";
+
+        break;
+      case "offline":
+        status = "<:OFFLINE:891662445746204713> Offline";
+        break;
+    }
 
     let nitroBadge = user.user.avatarURL({ dynamic: true });
     let flags = user.user.flags.toArray().join(``);
@@ -90,7 +98,7 @@ module.exports = new Command({
       flags =
         flags +
         `
-              • <:boost:891616400672706600>  \`Nitro\``;
+              • <a:booster:891680883722043392> \`Nitro\``;
     }
 
     let stat = user.presence.activities[0];

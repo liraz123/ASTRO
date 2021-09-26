@@ -57,6 +57,7 @@ module.exports = new Command({
         \u3000 Model: ${core.model}
         \u3000 Speed: ${core.speed}MHz`
       )
+      .setColor("#00ff00")
       .setTimestamp();
     await message.channel.send({ embeds: [embed] });
   },

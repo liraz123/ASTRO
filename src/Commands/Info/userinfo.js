@@ -90,7 +90,7 @@ module.exports = new Command({
       flags =
         flags +
         `
-              • <a:booster:891680883722043392>  \`Nitro\``;
+              • <:boost:891616400672706600>  \`Nitro\``;
     }
 
     let stat = user.presence.activities[0];

@@ -31,16 +31,16 @@ module.exports = new Command({
     let safe = message.author.createdTimestamp;
 
     if (safe > 604800017) {
-      safe = "`Not Suspicious` <:online2:891613501326524446>";
+      safe = "`Not Suspicious` <:Online:891662235380875355>";
     } else {
-      safe = "`Suspicious` <:dnd:891613707266846720>";
+      safe = "`Suspicious` <:dnd:891662340431425576>";
     }
 
-    if (userStat === "online") userStatm = `<:online:889924000325697596> `;
-    if (userStat === "offline") userStatm = `<:offline:889924075479269456> `;
-    if (userStat === "idle") userStatm = `<:statusidle:891614334617280542>`;
+    if (userStat === "online") userStatm = `<:Online:891662235380875355> `;
+    if (userStat === "offline") userStatm = `<:OFFLINE:891662445746204713> `;
+    if (userStat === "idle") userStatm = `<:idle:891662512276246618>`;
     if (userStat === "dnd")
-      userStatm = `Do not disturb <:dnd:891613707266846720>`;
+      userStatm = `Do not disturb <:dnd:891662340431425576>`;
 
     let nitroBadge = user.user.avatarURL({ dynamic: true });
     let flags = user.user.flags.toArray().join(``);
@@ -51,46 +51,46 @@ module.exports = new Command({
 
     flags = flags.replace(
       "HOUSE_BRAVERY",
-      "• <:hypesquad_bravery:891614818358935554>`HypeSquad Bravery`"
+      "• <:HypeSquadBravery:891683312547008583> `HypeSquad Bravery`"
     );
     flags = flags.replace(
       "EARLY_SUPPORTER",
-      "• <:earlysupporter:891614969907540018> `Early Supporter`"
+      "• <:Early_Supporter:891697698363822080> `Early Supporter`"
     );
     flags = flags.replace(
       "VERIFIED_DEVELOPER",
-      "• <:verified:891615196131500062>  `Verified Bot Developer`"
+      "• <:EARLY_VERIFIED_BOT_DEVELOPER:891696067601637417>  `Verified Bot Developer`"
     );
     flags = flags.replace(
       "EARLY_VERIFIED_DEVELOPER",
-      "• <:verified:891615196131500062> `Verified Bot Developer`"
+      "• <:EARLY_VERIFIED_BOT_DEVELOPER:891696067601637417> `Verified Bot Developer`"
     );
     flags = flags.replace(
       "HOUSE_BRILLIANCE",
-      "• <:hypesquad_brilliance:891615579075674163> `HypeSquad Brilliance`"
+      "• <:HypeSquadBrilliance:891683275079295047> `HypeSquad Brilliance`"
     );
     flags = flags.replace(
       "HOUSE_BALANCE",
-      "• <:hypesquad_balance:891615798219661322>`HypeSquad Balance`"
+      "• <:HypeSquadBalance:891683302564573254> `HypeSquad Balance`"
     );
     flags = flags.replace(
       "DISCORD_PARTNER",
-      "• <:partnerbadge:891615958056173628> `Partner`"
+      "• <:DiscordPartner:891695920616448012> `Partner`"
     );
     flags = flags.replace(
       "HYPESQUAD_EVENTS",
-      "• <:events:891616123190128660> `Hypesquad Events`"
+      "• <:HypesquadEvents:891697940278673479> `Hypesquad Events`"
     );
     flags = flags.replace(
       "DISCORD_CLASSIC",
-      "• <:nitro:891616269260955658> `Discord Classic`"
+      "• <:Discord_Nitro_Classic:891701674203283506> `Discord Classic`"
     );
 
     if (nitroBadge.includes("gif")) {
       flags =
         flags +
         `
-              • <:boost:891616400672706600>  \`Nitro\``;
+              • <a:booster:891680883722043392>  \`Nitro\``;
     }
 
     let stat = user.presence.activities[0];

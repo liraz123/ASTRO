@@ -6,7 +6,7 @@ const Discord = require("discord.js");
 
 module.exports = new Event("guildMemberAdd", async (client, member) => {
 	const channel = member.guild.channels.cache.find(
-		c => c.id == "891661470885113859"
+		c => c.id == "883289559222329384"
 	);
 
 	if (!channel) return;

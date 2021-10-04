@@ -6,20 +6,31 @@ const Client = require("./Structures/Client.js");
 
 const mongoose = require("mongoose");
 
-const { mongooseConnectionString, prefix, token } = require("./Data/config.js");
+const config = require("./Data/config.js");
 
 const client = new Client();
 
-console.log(`My prefix is [ ${prefix} ]`);
+const { Player } = require("discord-music-player");
+
+const player = new Player(client, {
+  leaveOnEmpty: false,
+  leaveOnStop: true,
+  deafenOnJoin: true,
+  volume: 100,
+});
+
+client.player = player;
 
 // mongoose
-if (!mongooseConnectionString) return;
+if (!config.mongooseConnectionString) return;
 
 mongoose
-  .connect(mongooseConnectionString)
+  .connect(config.mongooseConnectionString)
   .then(() => console.log("Connected to mongodb"));
 
-process.on("unhandledRejection", (err) => {
-  console.log("err" + err);
-});
-client.start(token);
+client.start(
+  config.token,
+  process.on("unhandledRejection", (err) => {
+    console.log("err" + err);
+  })
+);

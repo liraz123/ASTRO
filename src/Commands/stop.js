@@ -14,7 +14,8 @@ module.exports = new Command({
 
     let queue = client.player.createQueue(message.guild.id);
     queue.stop();
-    const msg = message.channel.send({ content: `Stoping...` });
-    if (msg) setTimeout(() => msg.delete(), 1666);
+    message.channel.send({ content: `Stoping...` }).then((msg) => {
+      setTimeout(() => msg.delete(), 1666);
+    });
   },
 });

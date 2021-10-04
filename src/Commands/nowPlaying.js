@@ -15,12 +15,17 @@ module.exports = new Command({
       return message.reply("No permission to connect to that voice channel");
 
     let guildQueue = client.player.getQueue(message.guild.id);
-    message.channel.send(`Now playing: ${guildQueue.nowPlaying}`);
-    const ProgressBar = guildQueue.createProgressBar();
+    const ProgressBar = guildQueue.createProgressBar({
+      block: "═",
+      size: "10",
+      arrow: "▷",
+    });
     let embed = new MessageEmbed()
       .setTitle(`🎶ProgressBar🎶`)
-      .setDescription(`${ProgressBar}`)
-      .setColor("AQUA");
+      .setDescription(
+        `**Now playing:** \`${guildQueue.nowPlaying}\`\n${ProgressBar}`
+      )
+      .setColor("BLURPLE");
     await message.channel.send({ embeds: [embed] });
   },
 });

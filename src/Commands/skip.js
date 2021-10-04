@@ -14,7 +14,8 @@ module.exports = new Command({
 
     let queue = client.player.createQueue(message.guild.id);
     queue.skip();
-    const msg = message.channel.send({ content: `Skipping...` });
-    if (msg) setTimeout(() => msg.delete(), 1666);
+    message.channel.send({ content: `Skipping...` }).then((msg) => {
+      setTimeout(() => msg.delete(), 1666);
+    });
   },
 });

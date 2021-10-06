@@ -3,7 +3,7 @@ const Command = require("../Structures/Command.js");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = new Command({
-  name: "play",
+  name: "playList",
   description: "Play a song!",
   permission: "SEND_MESSAGES",
   async run(message, args, client) {
@@ -16,11 +16,12 @@ module.exports = new Command({
 
     const query = args.slice(1).join(" ");
     if (!query) return message.channel.send("Please provide a song to play!");
-
+    
+    let guildQueue = client.player.getQueue(message.guild.id);
     let queue = client.player.createQueue(message.guild.id);
     await queue.join(message.member.voice.channel);
-    let song = await queue.play(args.slice(1).join(" ")).catch((_) => {
-      if (!queue) queue.stop();
+    let song = await queue.playlist(args.slice(1).join(" ")).catch((_) => {
+      if (!guildQueue) queue.stop();
     });
     const embed = new MessageEmbed()
       .setDescription(`Started playing : **${song}** `)

@@ -18,7 +18,7 @@ const player = new Player(client, {
   deafenOnJoin: true,
   volume: 100,
   quality: "high",
-  timeout: "7000"
+  timeout: "10000"
 });
 
 client.player = player;

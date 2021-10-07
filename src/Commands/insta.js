@@ -18,12 +18,13 @@ module.exports = new Command({
     const url = `https://instagram.com/${name}/?__a=1`;
     const res = await fetch(url).then((url) => url.json());
 
-    if (!res.graphql.user.username) {
+    const account = res.graphql.user;
+
+    if (!account.username) {
       return message
         .reply("I couldn't find any account with that username...")
         .then((m) => m.delete(5000));
     }
-    const account = res.graphql.user;
 
     const embed = new MessageEmbed()
       .setTitle(

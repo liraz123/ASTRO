@@ -16,14 +16,14 @@ module.exports = new Command({
 
     let guildQueue = client.player.getQueue(message.guild.id);
     const ProgressBar = guildQueue.createProgressBar({
-      block: "═",
+      block: "—",
       size: "10",
       arrow: "▷",
     });
     let embed = new MessageEmbed()
       .setTitle(`🎶ProgressBar🎶`)
       .setDescription(
-        `**Now playing:** \`${guildQueue.nowPlaying}\`\n${ProgressBar}`
+        `**Now playing:** \`${guildQueue.nowPlaying}\`\n${ProgressBar.prettier}`
       )
       .setColor("BLURPLE");
     await message.channel.send({ embeds: [embed] });

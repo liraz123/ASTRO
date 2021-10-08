@@ -13,12 +13,12 @@ module.exports = new Command({
 
     if (!args.slice(1).length > 0) return message.reply("Missing username!");
 
-    fetch(`https://luminabot.xyz/api/json/github?username=${user}`)
+    fetch(`https://api.popcat.xyz/github/${user}`)
       .then((r) => r.json())
       .then((f) => {
         const embed = new Discord.MessageEmbed()
           .setTitle(`Username: ${f.name}`)
-          .setDescription(`[Github link](${f.url}), email: ${f.email}`)
+          .setURL(f.url)
           .setThumbnail(f.avatar)
           .addField(`Company`, `${f.company}`, true)
           .addField(`Bio`, `${f.bio}`, true)

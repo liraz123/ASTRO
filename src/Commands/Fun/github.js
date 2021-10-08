@@ -17,7 +17,7 @@ module.exports = new Command({
       .then((r) => r.json())
       .then((f) => {
         const embed = new Discord.MessageEmbed()
-          .setTitle(`Username: ${f.name}`)
+          .setTitle(`${f.name}`)
           .setURL(f.url)
           .setColor("#F1502F")
           .setThumbnail(f.avatar)

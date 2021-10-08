@@ -19,6 +19,7 @@ module.exports = new Command({
         const embed = new Discord.MessageEmbed()
           .setTitle(`Username: ${f.name}`)
           .setURL(f.url)
+          .setColor("#F1502F")
           .setThumbnail(f.avatar)
           .addField(`Company`, `${f.company}`, true)
           .addField(`Bio`, `${f.bio}`, true)

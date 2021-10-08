@@ -28,29 +28,31 @@ class Client extends Discord.Client {
 
   start(token) {
     // Command Handler
-    const commandFiles = fs
-      .readdirSync("./src/Commands")
-      .filter((file) => file.endsWith(".js"));
+    let slashcmd = [];
 
-    /**
-     * @type {Command[]}
-     */
-    const commands = commandFiles.map((file) => require(`../Commands/${file}`));
+    fs.readdirSync("./src/Commands").forEach((dir) => {
+      const commandFiles = fs
+        .readdirSync(`./src/Commands/${dir}/`)
+        .filter((file) => file.endsWith(".js"));
+      const commands = commandFiles.map((file) =>
+        require(`../Commands/${dir}/${file}`)
+      );
 
-    commands.forEach((cmd) => {
-      console.log(`Command ${cmd.name} loaded`);
-      this.commands.set(cmd.name, cmd);
-    });
+      commands.forEach((cmd) => {
+        console.log(`Command ${cmd.name} loaded`);
+        this.commands.set(cmd.name, cmd);
+        slashcmd.push(cmd);
+      });
 
-    const slashCommands = commands
-      .filter((cmd) => ["BOTH", "SLASH"].includes(cmd.type))
-      .map((cmd) => ({
-        name: cmd.name.toLowerCase(),
-        description: cmd.description,
-        permissions: [],
-        options: cmd.slashCommandOptions,
-        defaultPermission: true,
-      }));
+      const slashCommands = slashcmd
+        .filter((cmd) => ["BOTH", "SLASH"].includes(cmd.type))
+        .map((cmd) => ({
+          name: cmd.name.toLowerCase(),
+          description: cmd.description,
+          permissions: [],
+          options: cmd.slashCommandOptions,
+          defaultPermission: true,
+        }));
 
     // .forEach(file => {
     // 	/**
@@ -72,6 +74,7 @@ class Client extends Discord.Client {
         console.log(`Slash Command ${cmd.name} registered`)
       );
     });
+  });
 
     fs.readdirSync("./src/Events")
       .filter((file) => file.endsWith(".js"))

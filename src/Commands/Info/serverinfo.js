@@ -7,10 +7,7 @@ module.exports = new Command({
   description: "Shows info about the server",
   permission: "SEND_MESSAGES",
   type: "BOTH",
-  slashCommandOptions: [{
-    name: "serverinfo",
-    description: "Shows info about thte server."
-  }],
+  slashCommandOptions: [],
   async run(message, args, client) {
     const emojicount = message.guild.emojis.cache;
     const roles = message.guild.roles.cache

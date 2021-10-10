@@ -2,21 +2,83 @@
 
 const Event = require("../Structures/Event.js");
 
-const { MessageAttachment } = require("discord.js");
+const Canvas = require("canvas");
 
-module.exports = new Event("guildMemberAdd", async (member) => {
+const { MessageAttachment, MessageEmbed } = require("discord.js");
+
+module.exports = new Event("guildMemberAdd", async (client, member) => {
+  Canvas.registerFont( "AZONIX.otf",{ family: "lbold" });
+  const applyText = (canvas, text) => {
+    const context = canvas.getContext("2d");
+    let fontSize = 70;
+
+    do {
+      context.font = `${(fontSize -= 10)}px sans-serif`;
+    } while (context.measureText(text).width > canvas.width - 300);
+
+    return context.font;
+  };
+
   const channel = member.guild.channels.cache.find(
-    (c) => c.id == "883289559222329384"
+    (c) => c.name == "👋・joins-leaves"
   );
 
   if (!channel) return;
 
-  const ava = member.user.displayAvatarURL({ dynamic: false , format: "png" });
+  const canvas = Canvas.createCanvas(700, 250);
+  const context = canvas.getContext("2d");
 
-  const image = `https://api.popcat.xyz/welcomecard?background=https://cdn.discordapp.com/attachments/891661470885113859/896119046599241758/milky-way-2695569__480.png&text1=${member.user.tag}&text2=Welcome+To+${member.guild.name}+server!&text3=Member+${member.guild.memberCount}&avatar=${ava}`;
-  var att = new MessageAttachment(image, "-.png");
-  channel.send({
-    content: `<a:welc:878943272234520576><a:come:878943268602265600> ${member.user.tag}`,
-    files: [att],
-  });
+  const background = await Canvas.loadImage(
+    "https://cdn.discordapp.com/attachments/799322908836757525/896257609064124426/New_Project_1.png"
+  );
+  context.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+  context.font = "20px lbold";
+  context.fillStyle = "#ffffff";
+  context.fillText(
+    `Welcome to ${member.guild.name} support server!`,
+    canvas.width / 3.5,
+    canvas.height / 3.5
+  );
+
+  context.font = "50px lbold";
+  context.fillStyle = "#ffffff";
+  context.fillText(
+    `${member.displayName}`,
+    canvas.width / 3.0,
+    canvas.height /1.8
+  );
+
+  context.font = " 33px lbold";
+  context.fillStyle = "#FFFFFF";
+  context.fillText(
+    `YOU ARE ${member.guild.memberCount}th MEMBER`,
+    canvas.width / 3.3,
+    canvas.height / 1.3
+  );
+
+  context.beginPath();
+  context.arc(105, 130, 80, 0, Math.PI * 2, true);
+  context.strokeStyle = "#ffffff";
+  context.lineWidth = 6;
+  context.stroke();
+  context.save();
+  context.closePath();
+  context.clip();
+
+  const avatar = await Canvas.loadImage(
+    member.user.displayAvatarURL({ format: "png" })
+  );
+  context.drawImage(avatar, 25, 50, 175, 175);
+
+  const attachment = new MessageAttachment(
+    canvas.toBuffer(),
+    "welcome-image.png"
+  );
+
+  const embed = new MessageEmbed()
+    .setTitle(`welcome to the server, ${member.user.username}!`)
+    .setImage("attachment://welcome-image.png")
+    .setColor("RANDOM");
+  channel.send({ embeds: [embed], files: [attachment] });
 });

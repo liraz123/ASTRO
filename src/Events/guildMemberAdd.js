@@ -2,34 +2,21 @@
 
 const Event = require("../Structures/Event.js");
 
-const Discord = require("discord.js");
+const { MessageAttachment } = require("discord.js");
 
-module.exports = new Event("guildMemberAdd", async (client, member) => {
-	const channel = member.guild.channels.cache.find(
-		c => c.id == "883289559222329384"
-	);
+module.exports = new Event("guildMemberAdd", async (member) => {
+  const channel = member.guild.channels.cache.find(
+    (c) => c.id == "883289559222329384"
+  );
 
-	if (!channel) return;
+  if (!channel) return;
 
-	const embed = new Discord.MessageEmbed();
+  const ava = member.user.displayAvatarURL({ dynamic: false , format: "png" });
 
-	embed.setColor("#00ff00")
-		.setTitle(`<a:welc:878943272234520576><a:come:878943268602265600>${member.user.tag}`)
-		.setThumbnail(member.user.avatarURL({
-			dynamic: true
-		}))
-		.addFields({
-			name: "Account Created",
-			value: member.user.createdAt.toLocaleDateString('en-us'),
-			inline: true
-		}, {
-			name: "User Joined",
-			value: member.joinedAt.toLocaleDateString('en-us'),
-			inline: true
-		})
-		.setTimestamp(member.joinedTimestamp);
-
-	channel.send({
-		embeds: [embed]
-	});
+  const image = `https://api.popcat.xyz/welcomecard?background=https://cdn.discordapp.com/attachments/891661470885113859/896119046599241758/milky-way-2695569__480.png&text1=${member.user.tag}&text2=Welcome+To+${member.guild.name}+server!&text3=Member+${member.guild.memberCount}&avatar=${ava}`;
+  var att = new MessageAttachment(image, "-.png");
+  channel.send({
+    content: `<a:welc:878943272234520576><a:come:878943268602265600> ${member.user.tag}`,
+    files: [att],
+  });
 });

@@ -1,77 +1,67 @@
 const Command = require("../../Structures/Command.js");
 
-const Discord = require("discord.js");
+const { MessageEmbed } = require('discord.js');
 
 module.exports = new Command({
   name: "serverinfo",
   description: "Shows info about the server",
-  permission: "ADMINISTRATOR",
+  permission: "SEND_MESSAGES",
+  type: "BOTH",
+  slashCommandOptions: [{
+    name: "serverinfo",
+    description: "Shows info about thte server."
+  }],
   async run(message, args, client) {
-    const members = message.guild.members.cache;
+    const emojicount = message.guild.emojis.cache;
+    const roles = message.guild.roles.cache
+      .filter((r) => r.id !== message.guild.id)
+      .map((role) => role.toString());
+    const create = message.guild.createdAt.toLocaleDateString();
+    const channels = message.guild.channels.cache;
 
-    const embed = new Discord.MessageEmbed();
-    embed
-      .setTitle(`**SERVER INFO**`)
-      .setColor(`#00FF00`)
-      .setThumbnail(
-        message.guild.iconURL({ dynamic: true })
-          ? message.guild.iconURL({ dynamic: true })
-          : `https://guild-default-icon.herokuapp.com/${message.guild.nameAcronym}`
-      )
-      .addFields(
-        {
-          name: "<a:discordload:880502986890170369> Server name <a:discordload:880502986890170369>",
-          value: `<a:ar:878262605154766899> ${message.guild.name} `,
-        },
-        {
-          name: "<a:gcrown:880502389793259620> Owner <a:gcrown:880502389793259620>",
-          value: `<a:ar:878262605154766899> <@!${message.guild.ownerId}>`,
-        },
-        {
-          name: "Members",
-          value: `<a:ar:878262605154766899> Total: ${
-            message.guild.memberCount
-          }, Human: ${
-            members.filter((member) => !member.user.bot).size
-          }, Bots: ${members.filter((member) => member.user.bot).size}`,
-        },
-        {
-          name: "📡 Channels 🛰️",
-          value: `<a:ar:878262605154766899> Total: ${
-            message.guild.channels.cache.size
-          }, <:TC:883245243741405234> Text: ${
-            message.guild.channels.cache.filter(
-              (channel) => channel.type === "GUILD_TEXT"
-            ).size
-          }, <:VC:883245603038064650> Voice: ${
-            message.guild.channels.cache.filter(
-              (channel) => channel.type === "GUILD_VOICE"
-            ).size
-          }`,
-        },
-        {
-          name: `Emojis`,
-          value: `<a:ar:878262605154766899> Total: ${
-            message.guild.emojis.cache.size
-          }, Normal: ${
-            message.guild.emojis.cache.filter((emoji) => !emoji.animated).size
-          }, Animated: ${
-            message.guild.emojis.cache.filter((emoji) => emoji.animated).size
-          }`,
-        },
-        {
-          name: "No. of Roles",
-          value: `<a:ar:878262605154766899> ${message.guild.roles.cache.size}`,
-        },
-        {
-          name: "Roles list",
-          value: `${message.guild.roles.cache.map((r) => `${r}`).join("\n")}`,
-        }
-      )
-      .setFooter(`ID: ${message.guild.id}`)
-      .setTimestamp(`${message.guild.createdAt}`);
     message.channel.send({
-      embeds: [embed],
+      embeds: [
+        new MessageEmbed()
+        .setThumbnail(
+          message.guild.iconURL({ dynamic: true })
+            ? message.guild.iconURL({ dynamic: true })
+            : `https://guild-default-icon.herokuapp.com/${message.guild.nameAcronym}`
+        )
+          .addFields(
+            {
+              name: `<a:ar:878262605154766899> **INFORMATION**`,
+              value: `**Server Name:** \`${
+                message.guild.name
+              }\`\n**Server Id:** \`${message.guild.id}\`\n**Owner Name:** \`${
+                (await message.guild.fetchOwner()).user.username
+              }\`\n**Owner id:** \`${await message.guild.ownerId}\`\n`,
+            },
+            {
+              name: `<a:ar:878262605154766899> **COUNT**`,
+              value: `**Members:** \`${message.guild.memberCount.toString()}\`\n**Roles:**: \`${
+                roles.length
+              }\`\n**Channels:** \`${
+                channels.size
+              }\`\n**Text Channels:** \`${message.guild.channels.cache
+                .filter((channel) => channel.type === "GUILD_TEXT")
+                .size.toString()}\`\n**Voice Channels:** \`${message.guild.channels.cache
+                .filter((channel) => channel.type === "GUILD_VOICE")
+                .size.toString()}\`\n**Emojis:** \`${emojicount.size}\`\n`,
+            },
+            {
+              name: `<a:ar:878262605154766899> **ADDITIONAL INFORMATION**`,
+              value: `**Created At:** \`${create}\`\n**Boost Count** \`${
+                message.guild.premiumSubscriptionCount
+              }\`\n**Boost Level** \`${message.guild.premiumTier.toString()}\`\n**Verification Level** \`${message.guild.verificationLevel.toString()}\`\n`,
+            }
+          )
+
+          .setColor("BLUE")
+          .setFooter(
+            `Requested by ${message.author.tag}`,
+            message.author.displayAvatarURL({ dynamic: true })
+          ),
+      ],
     });
   },
 });

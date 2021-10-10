@@ -58,7 +58,7 @@ module.exports = new Command({
 
           .setColor("BLUE")
           .setFooter(
-            `Requested by ${message.author.tag}`,
+            `Requested by: ${message.author.tag}`,
             message.author.displayAvatarURL({ dynamic: true })
           ),
       ],

@@ -17,7 +17,7 @@ module.exports = new Command({
             label: "Information",
             description: "Click here to see all the Informative Commands",
             value: "first",
-            emoji: "ℹ️",
+            emoji: "<:INFO:893815758344323083>",
           },
           {
             label: "Fun",
@@ -29,12 +29,18 @@ module.exports = new Command({
             label: "Moderation",
             description: "Click here to get all the Moderation Commands",
             value: "third",
-            emoji: "<<:modBadge:891763544629076078>",
+            emoji: "<:modBadge:891763544629076078>",
           },
           {
-            label: " Anime",
-            description: "Click me if you want Anime Commands",
+            label: " Games",
+            description: "Click me if you want Games Commands",
             value: "fourth",
+            emoji: "<a:game_console:893811774971867136>",
+          },
+          {
+            label: " Action",
+            description: "Click me if you want Action Commands",
+            value: "fifth",
             emoji: "<a:pat_pat:887049600723189760>",
           },
         ])
@@ -56,7 +62,7 @@ module.exports = new Command({
         {
           name: "Information",
           value:
-            "Welcome to** ASTRO** help info page where you can find \nall the available commands that the bot could perform.",
+            "Welcome to **ASTRO** help info page where you can find \nall the available commands that the bot could perform.",
         },
         // {
         //   name: "More Info",
@@ -65,7 +71,7 @@ module.exports = new Command({
         // },
         {
           name: "Default Prefix",
-          value: "<:plus_pre:887344481324638218>`help`",
+          value: "<:minus_pre:887344481328832542>`help`",
         }
       )
       .setTimestamp()
@@ -91,7 +97,7 @@ module.exports = new Command({
         {
           name: "Commands",
           value:
-            "`ping` | `userinfo` | `botinfo` | `uptime` | `help` | `helpinfo` | `serverinfo`",
+            "`ping` | `embed` | `userinfo` | `stats` | `uptime` | `help` | `helpinfo` | `serverinfo` | `emojis` | `invite`",
         }
 
         // {
@@ -106,19 +112,18 @@ module.exports = new Command({
     let embed2 = new Discord.MessageEmbed()
 
       .setAuthor(user.user.username, user.user.displayAvatarURL())
-      .setColor("#ff9100")
+      .setColor("#ffd700")
       .setTitle("**Welcome** to the `Fun` section")
       .addFields(
         {
           name: "Fun Page",
-          value:
-            "**Fun** Commands are used to `Troll/ have a good time` with your friends",
+          value: "**Fun** Commands are used to `` with your friends",
         },
 
         {
           name: "Commands",
           value:
-            "`meme` | `say` | `dog`  | `cat` | `hack` | `reverse` | `rps` | `tweet` | `ttt` | `connect4` | `snake` | `achievement`",
+            "`meme` | `say` | `dog`  | `cat` | `hack` | `reverse` | `tweet` | `quote` | `weather` | `yt`",
         }
 
         // {
@@ -139,12 +144,12 @@ module.exports = new Command({
         {
           name: "Moderation Page",
           value:
-            "**Moderation** Commands are intentionally used to keep your server **Safe**",
+            "**Moderation** Commands are intentionally used to keep your server **Safe**.",
         },
 
         {
           name: "Commands",
-          value: "`clear`",
+          value: "`clear` | `snipe`",
         }
         // {
         //   name: "More Information ",
@@ -158,18 +163,44 @@ module.exports = new Command({
     let embed4 = new Discord.MessageEmbed()
 
       .setAuthor(user.user.username, user.user.displayAvatarURL())
-      .setColor("#fcba03")
+      .setColor("#0000ff")
+      .setTitle("**Welcome** to the `Games` section")
+      .addFields(
+        {
+          name: "Games",
+          value:
+            "**Games** Commands are used to play games with the mentioned player or you can play with yourself.",
+        },
+
+        {
+          name: "Commands",
+          value: "`rps` | `ttt` | `connect4` | `snake` | `chess`",
+        }
+
+        // {
+        //   name: "More Information ",
+        //   value:
+        //     "For more **Information** please check out the `!helpinfo` Command",
+        // }
+      )
+      .setTimestamp()
+      .setThumbnail(client.user.displayAvatarURL());
+
+    let embed5 = new Discord.MessageEmbed()
+
+      .setAuthor(user.user.username, user.user.displayAvatarURL())
+      .setColor("#f7347a")
       .setTitle("**Welcome** to the `Action` section")
       .addFields(
         {
           name: "Action",
           value:
-            "**Action** Commands are used to send animated gifs to mentioned user",
+            "**Action** Commands are used to send super cute animated gifs to mentioned user.",
         },
 
         {
           name: "Commands",
-          value: "`wave` | `hug` | `pat` | `kill` | `wanted` | `highfive`",
+          value: "`wave` | `hug` | `pat` | `kill`",
         }
 
         // {
@@ -199,6 +230,9 @@ module.exports = new Command({
       }
       if (value === "fourth") {
         collected.reply({ embeds: [embed4], ephemeral: true });
+      }
+      if (value === "fifth") {
+        collected.reply({ embeds: [embed5], ephemeral: true });
       }
     });
   },

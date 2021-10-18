@@ -9,7 +9,7 @@ const os = require("os");
 const Command = require("../../Structures/Command.js");
 
 module.exports = new Command({
-  name: "botinfo",
+  name: "stats",
   description: "Check the info of the bot",
   permission: "SEND_MESSAGES",
   async run(message, args, client) {
@@ -30,30 +30,30 @@ module.exports = new Command({
       .setColor("DARK_BUT_NOT_BLACK")
       .addField(
         "General",
-        `**❯ Client:** ${client.user.tag} (${client.user.id})
-        **❯ Commands:** ${client.commands.size}
-        **❯ Servers:** ${client.guilds.cache.size.toLocaleString()}
-        **❯ Uptime:** ${uptime}
-        **❯ Users:** ${client.guilds.cache
+        `**❯ Client:** \`${client.user.tag} (${client.user.id})\`
+        **❯ Commands:** \`${client.commands.size}\`
+        **❯ Servers:** \`${client.guilds.cache.size.toLocaleString()}\`
+        **❯ Uptime:** \`${uptime}\`
+        **❯ Users:** \`${client.guilds.cache
           .reduce((a, b) => a + b.memberCount, 0)
-          .toLocaleString()}
-        **❯ Channels:** ${client.channels.cache.size.toLocaleString()}
-        **❯ Creation Date:** ${utc(client.user.createdTimestamp).format(
+          .toLocaleString()}\`
+        **❯ Channels:** \`${client.channels.cache.size.toLocaleString()}\`
+        **❯ Creation Date:** \`${utc(client.user.createdTimestamp).format(
           "Do MMMM YYYY HH:mm:ss"
-        )}
-        **❯ Node.js:** ${process.version}
-        **❯ Version:** v${version}
-        **❯ Discord.js:** v${djsversion}
+        )}\`
+        **❯ Node.js:** \`${process.version}\`
+        **❯ Version:** \`v${version}\`
+        **❯ Discord.js:** \`v${djsversion}\`
         \u200b`
       )
       .setColor(client.color)
       .addField(
         "System",
-        `**❯ Platform:** ${process.platform}
+        `**❯ Platform:** \`${process.platform}\`
         **❯ CPU:**
-        \u3000 Cores: ${os.cpus().length}
-        \u3000 Model: ${core.model}
-        \u3000 Speed: ${core.speed}MHz`
+        \u3000 \`Cores: ${os.cpus().length}\`
+        \u3000 \`Model: ${core.model}\`
+        \u3000 \`Speed: ${core.speed}MHz\``
       )
       .setTimestamp();
     await message.channel.send({ embeds: [embed] });

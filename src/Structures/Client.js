@@ -12,6 +12,8 @@ const intents = new Discord.Intents(32767);
 
 const fs = require("fs");
 
+const chalk = require("chalk");
+
 class Client extends Discord.Client {
   constructor() {
     super({
@@ -24,6 +26,8 @@ class Client extends Discord.Client {
     this.commands = new Discord.Collection();
 
     this.prefix = config.prefix;
+
+    this.snipes = new Discord.Collection();
   }
 
   start(token) {
@@ -39,7 +43,7 @@ class Client extends Discord.Client {
       );
 
       commands.forEach((cmd) => {
-        console.log(`Command ${cmd.name} loaded`);
+        console.log(`Command`, chalk.green.bold(`${cmd.name}`), `loaded`);
         this.commands.set(cmd.name, cmd);
         slashcmd.push(cmd);
       });
@@ -54,27 +58,27 @@ class Client extends Discord.Client {
           defaultPermission: true,
         }));
 
-    // .forEach(file => {
-    // 	/**
-    // 	 * @type {Command}
-    // 	 */
-    // 	const command = require(`../Commands/${file}`);
-    // 	console.log(`Command ${command.name} loaded`);
-    // 	this.commands.set(command.name, command);
-    // });
+      // .forEach(file => {
+      // 	/**
+      // 	 * @type {Command}
+      // 	 */
+      // 	const command = require(`../Commands/${file}`);
+      // 	console.log(`Command ${command.name} loaded`);
+      // 	this.commands.set(command.name, command);
+      // });
 
-    // Event Handler
+      // Event Handler
 
-    this.removeAllListeners();
+      this.removeAllListeners();
 
-    this.on("ready", async () => {
-      const cmds = await this.application.commands.set(slashCommands);
+      this.on("ready", async () => {
+        const cmds = await this.application.commands.set(slashCommands);
 
-      cmds.forEach((cmd) =>
-        console.log(`Slash Command ${cmd.name} registered`)
-      );
+        cmds.forEach((cmd) =>
+          console.log(`Slash Command ${cmd.name} registered`)
+        );
+      });
     });
-  });
 
     fs.readdirSync("./src/Events")
       .filter((file) => file.endsWith(".js"))

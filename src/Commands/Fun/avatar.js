@@ -6,50 +6,64 @@ const Discord = require("discord.js");
 
 module.exports = new Command({
   name: "avatar",
-  description: "Shows avatar of a User.",
+  description: "Shows avatar of a user.",
   permission: "SEND_MESSAGES",
   aliases: ["av", "pfp"],
+  type: "BOTH",
+  slashCommandOptions: [
+    {
+      name: "avatar",
+      description: "Shows avatar of a user.",
+      type: "USER",
+      required: true,
+    },
+  ],
   async run(message, args, client) {
-    let user =
-      message.mentions.members.first() ||
-      message.guild.members.cache.get(args[0]) ||
-      message.member;
+    const Target =
+      message instanceof Discord.CommandInteraction
+        ? message.guild.members.cache.find((m) => m.id === args[1]) ||
+          message.guild.members.cache.find((m) => m.id === message.user.id)
+        : message.mentions.members.first() || message.member;
+    const member =
+      message instanceof Discord.CommandInteraction
+        ? message.guild.members.cache.find((m) => m.id === message.user.id)
+        : message.member;
 
     const embed = new Discord.MessageEmbed();
 
     embed
-      .setAuthor(`${user.user.tag}"s Avatar`, user.user.displayAvatarURL())
+      .setAuthor(`${Target.user.tag}"s Avatar`, Target.user.displayAvatarURL())
       .setColor(`#0AFFFF`)
       .setDescription(
-        `[PNG](${user.user.displayAvatarURL({
+        `[PNG](${Target.user.displayAvatarURL({
           dynamic: true,
           format: "png",
-        })}) | [JPG](${user.user.displayAvatarURL({
+        })}) | [JPG](${Target.user.displayAvatarURL({
           dynamic: true,
           format: "jpg",
-        })}) | [GIF](${user.user.displayAvatarURL({
+        })}) | [GIF](${Target.user.displayAvatarURL({
           dynamic: true,
           format: "gif",
-        })}) | [WEBP](${user.user.displayAvatarURL({
+        })}) | [WEBP](${Target.user.displayAvatarURL({
           dynamic: true,
           format: "webp",
         })})`
       )
       .setImage(
-        `${user.user.displayAvatarURL({
-          size: 2048,
+        `${Target.user.displayAvatarURL({
+          size: 4096,
           dynamic: true,
           format: "png",
         })}`
       )
       .setFooter(
-        `Requested by: ${message.author.tag}`,
-        message.author.displayAvatarURL({
+        `Requested by: ${member.user.tag}`,
+        member.user.displayAvatarURL({
           dynamic: true,
         })
       )
       .setTimestamp(message.createdTimestamp);
-    message.channel.send({
+    message.reply({
       embeds: [embed],
     });
   },

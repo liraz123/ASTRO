@@ -4,20 +4,34 @@ const Command = require("../../Structures/Command.js");
 
 const moment = require("moment");
 
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, CommandInteraction } = require("discord.js");
 
 module.exports = new Command({
   name: "userinfo",
   description: "Shows info about the user.",
   permission: "SEND_MESSAGES",
   aliases: ["whois", "who"],
+  type: "BOTH",
+  slashCommandOptions: [
+    {
+      name: "user",
+      description: "Shows avatar of a user.",
+      type: "USER",
+      required: true,
+    },
+  ],
   async run(message, args, client) {
-    let user =
-      message.mentions.members.first() ||
-      message.guild.members.cache.get(args[0]) ||
-      message.member;
+    const Target =
+      message instanceof CommandInteraction
+        ? message.guild.members.cache.find((m) => m.id === args[1]) ||
+          message.guild.members.cache.find((m) => m.id === message.user.id)
+        : message.mentions.members.first() || message.member;
+    const member =
+      message instanceof CommandInteraction
+        ? message.guild.members.cache.find((m) => m.id === message.user.id)
+        : message.member;
 
-    let userRoles = user.roles.cache
+    let userRoles = Target.roles.cache
       .map((x) => x)
       .filter((z) => z.name !== "@everyone");
 
@@ -25,7 +39,7 @@ module.exports = new Command({
       userRoles = "More than 100";
     }
 
-    let safe = message.author.createdTimestamp;
+    let safe = member.user.createdTimestamp;
 
     if (safe > 604800017) {
       safe = "`Not Suspicious` <:Online:891662235380875355>";
@@ -34,7 +48,7 @@ module.exports = new Command({
     }
 
     let status;
-    switch (user.presence.status) {
+    switch (Target.presence.status) {
       case "online":
         status = "<:Online:891662235380875355> Online";
         break;
@@ -50,8 +64,8 @@ module.exports = new Command({
         break;
     }
 
-    let nitroBadge = user.user.avatarURL({ dynamic: true });
-    let flags = user.user.flags.toArray().join(``);
+    let nitroBadge = Target.user.avatarURL({ dynamic: true });
+    let flags = Target.user.flags.toArray().join(``);
 
     if (!flags) {
       flags = "None";
@@ -101,10 +115,10 @@ module.exports = new Command({
               • <a:booster:891680883722043392> \`Nitro\``;
     }
 
-    let stat = user.presence.activities[0];
+    let stat = Target.presence.activities[0];
     let custom;
 
-    if (user.presence.activities.some((r) => r.name === "Spotify")) {
+    if (Target.presence.activities.some((r) => r.name === "Spotify")) {
       custom = "Listening to Spotify";
     } else if (stat && stat.name !== "Custom Status") {
       custom = stat.name;
@@ -113,7 +127,7 @@ module.exports = new Command({
     }
 
     if (
-      user.presence.activities.some((r) => r.name !== "Spotify") &&
+      Target.presence.activities.some((r) => r.name !== "Spotify") &&
       stat &&
       stat.state !== null
     ) {
@@ -124,24 +138,21 @@ module.exports = new Command({
 
     const embeddd = new MessageEmbed()
       .setColor(`DARK_BUT_NOT_BLACK`)
-      .setAuthor(
-        message.author.tag,
-        message.author.avatarURL({ dynamic: true })
-      )
+      .setAuthor(member.user.tag, member.user.avatarURL({ dynamic: true }))
       .setDescription(
         `__**User Info**__
-              **•** \`ID:\` **${user.id}**
-              **•** \`Profile:\` **${user}**
+              **•** \`ID:\` **${Target.id}**
+              **•** \`Profile:\` **${Target}**
               **•** \`Current status:\` **${status}**
-              **•** \`Bot:\` **${user.user.bot ? "Yes" : "No"}**
-              **•** \`Created At:\` **${moment(user.user.createdAt).format(
+              **•** \`Bot:\` **${Target.user.bot ? "Yes" : "No"}**
+              **•** \`Created At:\` **${moment(Target.user.createdAt).format(
                 "MMMM Do YYYY, H:mm:ss a"
               )}**
               __**Member Info**__
               **•** \`Nickname:\` **${
-                user.displayName ? user.displayName : "yok"
+                Target.displayName ? Target.displayName : "yok"
               } **
-              **•** \`Joined At:\` **${moment(user.joinedAt).format(
+              **•** \`Joined At:\` **${moment(Target.joinedAt).format(
                 "MMMM Do YYYY, H:mm:ss a"
               )}**
               **•** \`Activity:\` **${custom}**
@@ -153,9 +164,9 @@ module.exports = new Command({
               __**Suspicious Check**__
               • ${safe}`
       )
-      .setThumbnail(user.user.avatarURL({ dynamic: true }))
+      .setThumbnail(Target.user.avatarURL({ dynamic: true }))
       .setTimestamp();
 
-    message.channel.send({ embeds: [embeddd] });
+    message.reply({ embeds: [embeddd] });
   },
 });

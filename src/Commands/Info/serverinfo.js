@@ -1,6 +1,6 @@
 const Command = require("../../Structures/Command.js");
 
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, CommandInteraction } = require("discord.js");
 
 module.exports = new Command({
   name: "serverinfo",
@@ -9,6 +9,10 @@ module.exports = new Command({
   type: "BOTH",
   slashCommandOptions: [],
   async run(message, args, client) {
+    const member =
+      message instanceof CommandInteraction
+        ? message.guild.members.cache.find((m) => m.id === message.user.id)
+        : message.member;
     const emojicount = message.guild.emojis.cache;
     const roles = message.guild.roles.cache
       .filter((r) => r.id !== message.guild.id)
@@ -19,11 +23,11 @@ module.exports = new Command({
     message.channel.send({
       embeds: [
         new MessageEmbed()
-        .setThumbnail(
-          message.guild.iconURL({ dynamic: true })
-            ? message.guild.iconURL({ dynamic: true })
-            : `https://guild-default-icon.herokuapp.com/${message.guild.nameAcronym}`
-        )
+          .setThumbnail(
+            message.guild.iconURL({ dynamic: true })
+              ? message.guild.iconURL({ dynamic: true })
+              : `https://guild-default-icon.herokuapp.com/${message.guild.nameAcronym}`
+          )
           .addFields(
             {
               name: `<a:ar:878262605154766899> **INFORMATION**`,
@@ -55,8 +59,8 @@ module.exports = new Command({
 
           .setColor("BLUE")
           .setFooter(
-            `Requested by: ${message.author.tag}`,
-            message.author.displayAvatarURL({ dynamic: true })
+            `Requested by: ${member.user.tag}`,
+            member.user.displayAvatarURL({ dynamic: true })
           ),
       ],
     });

@@ -43,26 +43,27 @@ module.exports = new Command({
             value: "fifth",
             emoji: "<a:pat_pat:887049600723189760>",
           },
+          {
+            label: " Music",
+            description: "Click me if you want Music Commands",
+            value: "sixth",
+            emoji: "<a:music:900672079765057546>",
+          },
         ])
     );
-
-    let user =
-      message.mentions.members.first() ||
-      message.guild.members.cache.get(args[0]) ||
-      message.member;
 
     let embed = new Discord.MessageEmbed();
 
     embed
 
-      .setAuthor(user.user.username, user.user.displayAvatarURL())
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
       .setColor("#00FF1E")
       .setTitle("Help Info Page")
       .addFields(
         {
           name: "Information",
           value:
-            "Welcome to **ASTRO** help info page where you can find \nall the available commands that the bot could perform.",
+            "Welcome to **ASTRO** help info page where you can find \nall the available commands that the bot could perform.\n`Slash commands` are also available! :smile:",
         },
         // {
         //   name: "More Info",
@@ -84,7 +85,7 @@ module.exports = new Command({
 
     let embed1 = new Discord.MessageEmbed()
 
-      .setAuthor(user.user.username, user.user.displayAvatarURL())
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
       .setColor("#00FF1E")
       .setTitle("**Welcome** to the `Information` section")
       .addFields(
@@ -111,7 +112,7 @@ module.exports = new Command({
 
     let embed2 = new Discord.MessageEmbed()
 
-      .setAuthor(user.user.username, user.user.displayAvatarURL())
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
       .setColor("#ffd700")
       .setTitle("**Welcome** to the `Fun` section")
       .addFields(
@@ -123,7 +124,7 @@ module.exports = new Command({
         {
           name: "Commands",
           value:
-            "`meme` | `say` | `dog`  | `cat` | `hack` | `reverse` | `tweet` | `quote` | `weather` | `yt`",
+            "`meme` | `say` | `dog`  | `cat` | `tweet` | `animeQuote` | `quote` | `weather` | `achievement` | `avatar` | `banner` | `emojify` | `fact` | `meme` | `insta`",
         }
 
         // {
@@ -137,7 +138,7 @@ module.exports = new Command({
 
     let embed3 = new Discord.MessageEmbed()
 
-      .setAuthor(user.user.username, user.user.displayAvatarURL())
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
       .setColor("#00c8ff")
       .setTitle("**Welcome** to the `Moderation` section")
       .addFields(
@@ -162,7 +163,7 @@ module.exports = new Command({
 
     let embed4 = new Discord.MessageEmbed()
 
-      .setAuthor(user.user.username, user.user.displayAvatarURL())
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
       .setColor("#0000ff")
       .setTitle("**Welcome** to the `Games` section")
       .addFields(
@@ -188,7 +189,7 @@ module.exports = new Command({
 
     let embed5 = new Discord.MessageEmbed()
 
-      .setAuthor(user.user.username, user.user.displayAvatarURL())
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
       .setColor("#f7347a")
       .setTitle("**Welcome** to the `Action` section")
       .addFields(
@@ -201,6 +202,32 @@ module.exports = new Command({
         {
           name: "Commands",
           value: "`wave` | `hug` | `pat` | `kill`",
+        }
+
+        // {
+        //   name: "More Information ",
+        //   value:
+        //     "For more **Information** please check out the `!helpinfo` Command",
+        // }
+      )
+      .setTimestamp()
+      .setThumbnail(client.user.displayAvatarURL());
+
+    let embed6 = new Discord.MessageEmbed()
+
+      .setAuthor(message.author.tag, message.author.displayAvatarURL())
+      .setColor("#d648d7")
+      .setTitle("**Welcome** to the `Music` section")
+      .addFields(
+        {
+          name: "Music",
+          value: "**Music** Commands are used to listen songs on Discord VC!",
+        },
+
+        {
+          name: "Commands",
+          value:
+            "`play` | `queue` | `nowPlaying` | `setVolume` | `skip` | `stop`",
         }
 
         // {
@@ -233,6 +260,9 @@ module.exports = new Command({
       }
       if (value === "fifth") {
         collected.reply({ embeds: [embed5], ephemeral: true });
+      }
+      if (value === "sixth") {
+        collected.reply({ embeds: [embed6], ephemeral: true });
       }
     });
   },

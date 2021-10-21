@@ -5,7 +5,7 @@ const f = require("node-fetch");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = new Command({
-  name: "truth or dare",
+  name: "tod",
   description: "",
   permission: "SEND_MESSAGES",
   async run(message, args, client) {
